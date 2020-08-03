@@ -6,6 +6,9 @@ class CardGame:
     def __init__(self,numofcards):
         self.listofcards=DeckOfCards().listcards
         self.numofcards=numofcards
+        if type(numofcards)!=int:
+            numofcards=5
+            print("Invalid number of cards")
         if self.numofcards>5 or self.numofcards<0:
             self.numofcards=5
         self.players=[]
@@ -25,13 +28,25 @@ class CardGame:
 
 #פונקציה שמקבלת מספר סיבוב ומחשבת ומחזירה את הפרס הכספי לאותו הסיבוב ע"י החסרה של כסף מכל אחד מהמשתתפים
     def PayRound(self,round):
-        sum=0
-        for i in self.players:
-            i.reduceAmount(100*round)
-            sum+=100*round
+        if type(round)!=int:
+            return "False"
+        elif round<0:
+            return "False"
+        else:
+            sum=0
+            for i in self.players:
+                i.reduceAmount(100*round)
+                sum+=100*round
         return sum
 #פונקציה המקבלת מצביע ברשימת השחקנים במשחק, שולפת את הקלף האחרון בחפיסה שלו וכן מחזירה אותו
     def CardsPerRound(self,pointer):
-        return self.players[pointer].playercards.pop()
+        if type(pointer) != int:
+            return "False"
+        if pointer<0 :
+            return "False"
+        elif len(self.players[pointer].playercards) ==0:
+            return "False"
+        else:
+            return self.players[pointer].playercards.pop()
 
 

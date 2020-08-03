@@ -25,12 +25,17 @@ class DeckOfCards:
             return self.listcards.pop()
 #פונקציה המערבבת מחדש את החפיסה ומסמנת את ראש החפיסה
     def newGame(self):
-        shuffle(self.listcards)
-        header=self.listcards[len(self.listcards)-1]
+        if len(self.listcards)==52:
+            shuffle(self.listcards)
+            header=self.listcards[len(self.listcards)-1]
+        else:
+            print("Invalid List")
 #פונקציה המציגה את הקלפים בחפיסה
     def show(self):
         for i in self.listcards:
-            print(i)
-
-
+            if type(i)==Card:
+                print(i)
+            else:
+                print("Inavalid Value - Not Card")
+                return "False"
 
