@@ -80,7 +80,8 @@ class TestPlayer(TestCase):
         player1.playercards = []
         card1 = Card(4, "Heart")
         player1.playercards.append(card1)
-        player1.addCard(card1)
+        card2=Card(7,"Heart")
+        player1.addCard(card2)
         self.assertTrue(len(player1.playercards) == 2)
 
     def test_add_card4(self): #check the function not put it an invalid value

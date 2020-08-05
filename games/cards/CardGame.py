@@ -7,13 +7,14 @@ class CardGame:
         self.listofcards=DeckOfCards().listcards
         self.numofcards=numofcards
         if type(numofcards)!=int:
-            numofcards=5
-            print("Invalid number of cards")
+            raise ValueError("inalid numofcards type.")
         if self.numofcards>5 or self.numofcards<0:
             self.numofcards=5
         self.players=[]
         for i in range(0,4,1):
             player=Player(input("enter name of player"),input("enter amount of money"))
+            if player.name=="":
+                player.name="Player"+str(i+1)
             if player.money<5000 or player.money>10000:
                 player.money=5000
             self.players.append(player)

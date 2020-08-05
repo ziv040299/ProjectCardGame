@@ -16,11 +16,11 @@ class DeckOfCards:
         shuffle(self.listcards)
 #פונקציה המחזירה קלף מראש החפיסה
     def dealOne(self):
+        if len(self.listcards)==0 or len(self.listcards)>52:
+            return False
         if type(self.listcards[len(self.listcards)-1])!=Card:
             print("Invalid Value")
-            return ("False")
-        if len(self.listcards)==0 or len(self.listcards)>52:
-            return "False"
+            return False
         else:
             return self.listcards.pop()
 #פונקציה המערבבת מחדש את החפיסה ומסמנת את ראש החפיסה

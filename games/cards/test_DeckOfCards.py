@@ -7,11 +7,15 @@ from games.cards.Card import Card
 class TestDeckOfCards(TestCase):
 
     def test_shuffle(self):
-        deck1=DeckOfCards()
-        with patch('games.cards.DeckOfCards.shuffle') as mock_shuffle:
-            num=deck1.listcards[0]
-            deck1.shuffle()
-            self.assertTrue(deck1.listcards[0]!=num)
+        deck1 = DeckOfCards()
+        deck2 = deck1.listcards.copy()
+        deck1.newGame()
+        break1 = 0
+        for i in range(len(deck1.listcards)):
+            if deck1.listcards[i] != deck2[i]:
+                break1 += 1
+                break
+        self.assertTrue(break1 == 1)
 
 
 
@@ -22,7 +26,7 @@ class TestDeckOfCards(TestCase):
         #     self.assertTrue(deck1.dealOne(),5)
         deck1=DeckOfCards()
         deck1.listcards=[]
-        self.assertTrue(deck1.dealOne()!=True)
+        self.assertFalse(deck1.dealOne())
 
     def test_deal_one1(self): #checks that function not works with over than full list
         deck1 = DeckOfCards()
@@ -39,7 +43,7 @@ class TestDeckOfCards(TestCase):
             card1 = Card(i + 1, "Heart")
             deck1.listcards.append(card1)
         deck1.listcards.append(4)
-        self.assertTrue(deck1.dealOne() != True)
+        self.assertFalse(deck1.dealOne())
 
     def test_deal_one3(self): #checks that the function works with valid list
         deck1 = DeckOfCards()

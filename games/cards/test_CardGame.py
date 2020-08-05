@@ -2,6 +2,9 @@ from unittest import TestCase
 from games.cards.Player import Player
 from games.cards.DeckOfCards import DeckOfCards
 from games.cards.CardGame import CardGame
+from unittest import TestCase,mock
+from unittest.mock import patch
+from games.cards.Card import Card
 
 
 class TestCardGame(TestCase):
@@ -22,6 +25,8 @@ class TestCardGame(TestCase):
         game1.newGame()
         self.assertTrue(len(game1.players[0].playercards)==game1.numofcards)
 
+
+
     def test_pay_round(self): #checks the function not works with negative round value
         game1=CardGame(5)
         self.assertTrue(game1.PayRound(-1)=="False")
@@ -30,8 +35,11 @@ class TestCardGame(TestCase):
         game1 = CardGame(5)
         self.assertTrue(game1.PayRound('gfdd') == "False")
 
-    def test_pay_round3(self):
-        pass
+    def test_pay_round3(self): #checks the function call right the stub function
+        with patch('games.cards.Player.Player.reduceAmount') as mock_a:
+            game1=CardGame(5)
+            game1.PayRound(2)
+            mock_a.assert_called_with(200)
 
 
     def test_cards_per_round(self): #checks the function not works with negative value of pointer
@@ -47,6 +55,20 @@ class TestCardGame(TestCase):
         game1.players[0].playercards=[]
         self.assertTrue(game1.CardsPerRound(3)=="False")
 
-    def test_init_(self):
-        game1 = CardGame("kll")
-        self.assertTrue(game1==None)
+    def test_init_(self): #checks the function not starts a game with numofcards is'nt integer
+        try:
+            game=CardGame("ziv")
+        except:
+            pass
+        else:
+            self.fail()
+
+    def test_init_2(self): #checks the function actually insert numofcards=5 if the user insert something else
+       game=CardGame(6)
+       self.assertTrue(game.numofcards==5)
+
+    def test_init_3(self): #checks the function not insert empty name to player
+        game = CardGame(5)
+        self.assertTrue(game.players[0].name=="Player1")
+
+

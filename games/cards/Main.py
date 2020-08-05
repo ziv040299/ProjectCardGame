@@ -14,6 +14,7 @@ for i in game1.players:
     print(i)
 #פתיחת משחק - 5 סיבובים
 for i in range(1,6,1):
+    print(f'Round number {i} has started:')
     prize=game1.PayRound(i)
     list1=[]
     list2=[]
